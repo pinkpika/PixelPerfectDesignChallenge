@@ -12,6 +12,8 @@ You can draw 16×16 pixels by this app.
 
 https://user-images.githubusercontent.com/5244890/174250811-29e0d15a-809d-44b1-8323-b90693bdc6ef.mov
 
+https://user-images.githubusercontent.com/5244890/176578256-c5a327a4-4f8a-4029-afd7-db3da16d66ae.mp4
+
 ## Implement
 
 Use LazyVGrid
