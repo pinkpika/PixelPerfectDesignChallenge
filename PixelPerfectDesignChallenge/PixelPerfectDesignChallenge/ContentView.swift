@@ -9,21 +9,29 @@ import SwiftUI
 
 struct ContentView: View {
     
+    /// 總寬度
     var totalWidth: CGFloat {
         return UIScreen.main.bounds.size.width - 20.0
     }
+    
+    /// Pixel寬度
     var pixelWidth: CGFloat {
         return ( totalWidth - spacing ) / CGFloat(pixelCountForSide) - spacing
     }
     
+    /// Pixel數量(每邊)
     let pixelCountForSide: Int = 16
     
+    /// [狀態] 所有顏色
     @State var allColor: [Color] = Array(repeating: .white, count: 16*16)
+    /// [狀態] 正在"Drawing"/"Erasing"
     @State var drawingButtonTitle = "Drawing"
+    /// [狀態] 是否
     @State var isDrawing = true
-    var spacingButtonTitle = "Show/Hide Spacing"
+    /// [狀態] 分隔線大小
     @State var spacing: CGFloat = 1
-    @State var bgColor = Color(.sRGB, red: 0.0, green: 0.0, blue: 0.0)
+    /// [狀態] 目前顏色
+    @State var nowColor = Color(.sRGB, red: 0.0, green: 0.0, blue: 0.0)
     
     var columes: [GridItem] {
         return Array(repeating: GridItem(spacing: spacing), count: pixelCountForSide)
@@ -37,9 +45,9 @@ struct ContentView: View {
                     isDrawing = !isDrawing
                     drawingButtonTitle = isDrawing ? "Drawing" : "Erasing"
                 })
-                ColorPicker("", selection: $bgColor).labelsHidden()
+                ColorPicker("", selection: $nowColor).labelsHidden().opacity(isDrawing ? 1 : 0)
                 Spacer()
-                Button(spacingButtonTitle, action: {
+                Button("Show/Hide Spacing", action: {
                     spacing = spacing == 1 ? 0 : 1
                 }).foregroundColor(.green)
                 Button("CleanAll", action: {
@@ -69,7 +77,7 @@ struct ContentView: View {
                 if let drawIndex = locationToIndex(location: value.location),
                     self.allColor.indices.contains(drawIndex){
                     withAnimation(.easeInOut(duration: 0.3)) {
-                        self.allColor[drawIndex] = isDrawing ? bgColor : .white
+                        self.allColor[drawIndex] = isDrawing ? nowColor : .white
                     }
                 }
             }
